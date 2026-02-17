@@ -8,8 +8,10 @@ local Objects = {}
 
 function Kavo:DraggingEnabled(frame, parent)
     parent = parent or frame
+
     local dragging = false
     local dragInput, mousePos, framePos
+
     frame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
@@ -24,7 +26,7 @@ function Kavo:DraggingEnabled(frame, parent)
         end
     end)
     frame.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
             dragInput = input
         end
     end)
@@ -36,7 +38,6 @@ function Kavo:DraggingEnabled(frame, parent)
         end
     end)
 end
-
 function Utility:TweenObject(obj, properties, duration, ...)
     tween:Create(obj, tweeninfo(duration, ...), properties):Play()
 end
@@ -48,7 +49,6 @@ local themes = {
     TextColor = Color3.fromRGB(255, 255, 255),
     ElementColor = Color3.fromRGB(32, 32, 38),
 }
-
 local themeStyles = {
     DarkTheme = {
         SchemeColor = Color3.fromRGB(64, 64, 64),
@@ -106,13 +106,6 @@ local themeStyles = {
         TextColor = Color3.fromRGB(152, 99, 53),
         ElementColor = Color3.fromRGB(24, 24, 24),
     },
-    Twiware = {
-        SchemeColor = Color3.fromRGB(176, 209, 176),
-        Background = Color3.fromRGB(241, 255, 184),
-        Header = Color3.fromRGB(252, 192, 192),
-        TextColor = Color3.fromRGB(235, 235, 235),
-        ElementColor = Color3.fromRGB(24, 24, 24),
-    },
     Serpent = {
         SchemeColor = Color3.fromRGB(0, 166, 58),
         Background = Color3.fromRGB(31, 41, 43),
@@ -121,14 +114,9 @@ local themeStyles = {
         ElementColor = Color3.fromRGB(22, 29, 31),
     },
 }
-
 local oldTheme = ""
 local SettingsT = {}
 local Name = "KavoConfig.JSON"
-
-if not isfile("KavoConfig.JSON") then
-    writefile(Name, "{}")
-end
 
 pcall(function()
     if not pcall(function()
@@ -149,7 +137,6 @@ function Kavo:ToggleUI()
         game.CoreGui[LibName].Enabled = true
     end
 end
-
 function Kavo.CreateLib(kavName, themeList)
     if not themeList then
         themeList = themes
@@ -170,8 +157,6 @@ function Kavo.CreateLib(kavName, themeList)
         themeList = themeStyles.Sentinel
     elseif themeList == "Synapse" then
         themeList = themeStyles.Synapse
-    elseif themeList == "Twiware" then
-        themeList = themeStyles.Twiware
     elseif themeList == "Serpent" then
         themeList = themeStyles.Serpent
     else
@@ -235,7 +220,6 @@ function Kavo.CreateLib(kavName, themeList)
     ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     ScreenGui.ResetOnSpawn = false
     Main.Name = "Main"
-    Main.Active = true
     Main.Parent = ScreenGui
     Main.BackgroundColor3 = themeList.Background
     Main.ClipsDescendants = true
@@ -266,7 +250,7 @@ function Kavo.CreateLib(kavName, themeList)
     title.BorderSizePixel = 0
     title.Position = UDim2.new(0.0171428565, 0, 0.344827592, 0)
     title.Size = UDim2.new(0, 204, 0, 8)
-    title.Font = Enum.Font.SourceSansBold
+    title.Font = Enum.Font.Gotham
     title.RichText = true
     title.Text = kavName
     title.TextColor3 = Color3.fromRGB(245, 245, 245)
@@ -399,7 +383,7 @@ function Kavo.CreateLib(kavName, themeList)
         Objects[tabButton] = "SchemeColor"
         tabButton.Size = UDim2.new(0, 135, 0, 28)
         tabButton.AutoButtonColor = false
-        tabButton.Font = Enum.Font.FredokaOne
+        tabButton.Font = Enum.Font.Gotham
         tabButton.Text = tabName
         tabButton.TextColor3 = themeList.TextColor
         Objects[tabButton] = "TextColor3"
@@ -538,7 +522,7 @@ function Kavo.CreateLib(kavName, themeList)
             sectionName.BorderColor3 = Color3.fromRGB(27, 42, 53)
             sectionName.Position = UDim2.new(0.0198863633, 0, 0, 0)
             sectionName.Size = UDim2.new(0.980113626, 0, 1, 0)
-            sectionName.Font = Enum.Font.JosefinSans
+            sectionName.Font = Enum.Font.Gotham
             sectionName.Text = secName
             sectionName.RichText = true
             sectionName.TextColor3 = themeList.TextColor
@@ -616,7 +600,7 @@ function Kavo.CreateLib(kavName, themeList)
                 buttonElement.ClipsDescendants = true
                 buttonElement.Size = UDim2.new(0, 352, 0, 33)
                 buttonElement.AutoButtonColor = false
-                buttonElement.Font = Enum.Font.FredokaOne
+                buttonElement.Font = Enum.Font.SourceSans
                 buttonElement.Text = ""
                 buttonElement.TextColor3 = Color3.fromRGB(0, 0, 0)
                 buttonElement.TextSize = 14
@@ -682,7 +666,7 @@ function Kavo.CreateLib(kavName, themeList)
                 btnInfo.BackgroundTransparency = 1
                 btnInfo.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
                 btnInfo.Size = UDim2.new(0, 314, 0, 14)
-                btnInfo.Font = Enum.Font.FredokaOne
+                btnInfo.Font = Enum.Font.GothamSemibold
                 btnInfo.Text = bname
                 btnInfo.RichText = true
                 btnInfo.TextColor3 = themeList.TextColor
@@ -843,7 +827,7 @@ function Kavo.CreateLib(kavName, themeList)
                 textboxElement.ClipsDescendants = true
                 textboxElement.Size = UDim2.new(0, 352, 0, 33)
                 textboxElement.AutoButtonColor = false
-                textboxElement.Font = Enum.Font.FredokaOne
+                textboxElement.Font = Enum.Font.SourceSans
                 textboxElement.Text = ""
                 textboxElement.TextColor3 = Color3.fromRGB(0, 0, 0)
                 textboxElement.TextSize = 14
@@ -879,7 +863,7 @@ function Kavo.CreateLib(kavName, themeList)
                 TextBox.Size = UDim2.new(0, 150, 0, 18)
                 TextBox.ZIndex = 99
                 TextBox.ClearTextOnFocus = false
-                TextBox.Font = Enum.Font.FredokaOne
+                TextBox.Font = Enum.Font.Gotham
                 TextBox.PlaceholderColor3 = Color3.fromRGB(themeList.SchemeColor.r * 255 - 19, themeList.SchemeColor.g * 255 - 26, themeList.SchemeColor.b * 255 - 35)
                 TextBox.PlaceholderText = "Type here!"
                 TextBox.Text = ""
@@ -893,7 +877,7 @@ function Kavo.CreateLib(kavName, themeList)
                 togName.BackgroundTransparency = 1
                 togName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
                 togName.Size = UDim2.new(0, 138, 0, 14)
-                togName.Font = Enum.Font.FredokaOne
+                togName.Font = Enum.Font.GothamSemibold
                 togName.Text = tname
                 togName.RichText = true
                 togName.TextColor3 = themeList.TextColor
@@ -1066,7 +1050,7 @@ function Kavo.CreateLib(kavName, themeList)
                 toggleElement.ClipsDescendants = true
                 toggleElement.Size = UDim2.new(0, 352, 0, 33)
                 toggleElement.AutoButtonColor = false
-                toggleElement.Font = Enum.Font.FredokaOne
+                toggleElement.Font = Enum.Font.SourceSans
                 toggleElement.Text = ""
                 toggleElement.TextColor3 = Color3.fromRGB(0, 0, 0)
                 toggleElement.TextSize = 14
@@ -1099,7 +1083,7 @@ function Kavo.CreateLib(kavName, themeList)
                 togName.BackgroundTransparency = 1
                 togName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
                 togName.Size = UDim2.new(0, 288, 0, 14)
-                togName.Font = Enum.Font.FredokaOne
+                togName.Font = Enum.Font.GothamSemibold
                 togName.Text = tname
                 togName.RichText = true
                 togName.TextColor3 = themeList.TextColor
@@ -1354,7 +1338,7 @@ function Kavo.CreateLib(kavName, themeList)
                 sliderElement.ClipsDescendants = true
                 sliderElement.Size = UDim2.new(0, 352, 0, 33)
                 sliderElement.AutoButtonColor = false
-                sliderElement.Font = Enum.Font.FredokaOne
+                sliderElement.Font = Enum.Font.SourceSans
                 sliderElement.Text = ""
                 sliderElement.TextColor3 = Color3.fromRGB(0, 0, 0)
                 sliderElement.TextSize = 14
@@ -1366,7 +1350,7 @@ function Kavo.CreateLib(kavName, themeList)
                 togName.BackgroundTransparency = 1
                 togName.Position = UDim2.new(0.096704483, 0, 0.272727281, 0)
                 togName.Size = UDim2.new(0, 138, 0, 14)
-                togName.Font = Enum.Font.FredokaOne
+                togName.Font = Enum.Font.GothamSemibold
                 togName.Text = slidInf
                 togName.RichText = true
                 togName.TextColor3 = themeList.TextColor
@@ -1390,7 +1374,7 @@ function Kavo.CreateLib(kavName, themeList)
                 sliderBtn.Position = UDim2.new(0.488749951, 0, 0.393939406, 0)
                 sliderBtn.Size = UDim2.new(0, 149, 0, 6)
                 sliderBtn.AutoButtonColor = false
-                sliderBtn.Font = Enum.Font.FredokaOne
+                sliderBtn.Font = Enum.Font.SourceSans
                 sliderBtn.Text = ""
                 sliderBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
                 sliderBtn.TextSize = 14
@@ -1526,7 +1510,7 @@ function Kavo.CreateLib(kavName, themeList)
                             sliderDrag:TweenSize(UDim2.new(0, math.clamp(mouse.X - sliderDrag.AbsolutePosition.X, 0, 149), 0, 6), "InOut", "Linear", 0.05, true)
                         end)
                         releaseconnection = uis.InputEnded:Connect(function(Mouse)
-                            if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or Mouse.UserInputType == Enum.UserInputType.Touch then
+                            if Mouse.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                                 Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 149) * sliderDrag.AbsoluteSize.X) + tonumber(minvalue))
 
                                 pcall(function()
@@ -1630,7 +1614,7 @@ function Kavo.CreateLib(kavName, themeList)
                 dropOpen.BackgroundColor3 = themeList.ElementColor
                 dropOpen.Size = UDim2.new(0, 352, 0, 33)
                 dropOpen.AutoButtonColor = false
-                dropOpen.Font = Enum.Font.FredokaOne
+                dropOpen.Font = Enum.Font.SourceSans
                 dropOpen.Text = ""
                 dropOpen.TextColor3 = Color3.fromRGB(0, 0, 0)
                 dropOpen.TextSize = 14
@@ -1735,7 +1719,7 @@ function Kavo.CreateLib(kavName, themeList)
                 itemTextbox.BackgroundTransparency = 1
                 itemTextbox.Position = UDim2.new(0.0970000029, 0, 0.273000002, 0)
                 itemTextbox.Size = UDim2.new(0, 138, 0, 14)
-                itemTextbox.Font = Enum.Font.SourceSansLight
+                itemTextbox.Font = Enum.Font.GothamSemibold
                 itemTextbox.Text = dropname
                 itemTextbox.RichText = true
                 itemTextbox.TextColor3 = themeList.TextColor
@@ -1784,7 +1768,7 @@ function Kavo.CreateLib(kavName, themeList)
                 moreInfo.Size = UDim2.new(0, 353, 0, 33)
                 moreInfo.ZIndex = 9
                 moreInfo.RichText = true
-                moreInfo.Font = Enum.Font.SourceSansLight
+                moreInfo.Font = Enum.Font.GothamSemibold
                 moreInfo.Text = "  " .. dropinf
                 moreInfo.TextColor3 = themeList.TextColor
                 moreInfo.TextSize = 14
@@ -2926,7 +2910,7 @@ function Kavo.CreateLib(kavName, themeList)
                     darknesss = true
                 end)
                 uis.InputEnded:Connect(function(input)
-                    if input.UserInputType.Name == "MouseButton1" then
+                    if input.UserInputType.Name == "MouseButton1" or input.UserInputType == Enum.UserInputType.Touch then
                         if darknesss then
                             darknesss = false
                         end
